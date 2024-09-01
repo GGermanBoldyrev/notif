@@ -1,8 +1,9 @@
 <?php
 
-namespace Models;
+namespace models;
 
-use Database\Database;
+
+use database\Database;
 
 class User
 {
@@ -12,6 +13,9 @@ class User
 
     public static function find(int $id): ?User
     {
-        $db = new Database();
+        $db = Database::getInstance();
+        $stmt = $db->prepare("SELECT * FROM `user` WHERE `id` = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch();
     }
 }
