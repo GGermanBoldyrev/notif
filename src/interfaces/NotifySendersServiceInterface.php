@@ -2,6 +2,10 @@
 
 namespace interfaces;
 
+use DateTime;
+use enums\SenderTypes;
+use models\Notify;
+
 interface NotifySendersServiceInterface
 {
     /**

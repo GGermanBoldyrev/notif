@@ -5,8 +5,9 @@ namespace services;
 use interfaces\NotifySendersServiceInterface;
 use models\Notify;
 use DateTime;
+use enums\SenderTypes;
 
-class NotifySendersServiceImpl implements NotifySendersServiceInterface
+class NotifySendersService implements NotifySendersServiceInterface
 {
     public function getNotSends(DateTime $dateTime): array
     {
@@ -15,6 +16,6 @@ class NotifySendersServiceImpl implements NotifySendersServiceInterface
 
     public function setNotificationSended(int $notifyId, SenderTypes $type) : void
     {
-        Notify::setNotificationSended($notifyId);
+        Notify::setNotificationSended($notifyId, $type);
     }
 }

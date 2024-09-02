@@ -2,7 +2,9 @@
 
 namespace interfaces;
 
-interface SenderNotify
+use models\Notify;
+
+interface SenderNotifyInterface
 {
     function send(Notify $notify): bool;
 }

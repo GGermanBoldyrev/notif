@@ -2,7 +2,9 @@
 
 namespace interfaces;
 
-interface SenderFactory
+use enums\SenderTypes;
+
+interface SenderFactoryInterface
 {
-    function make(SenderTypes $type): SenderNotify;
+    function make(SenderTypes $type): SenderNotifyInterface;
 }

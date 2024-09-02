@@ -3,16 +3,16 @@
 namespace services;
 
 use interfaces\SenderFactoryInterface;
-use interfaces\SenderNotifyInterface;
 use enums\SenderTypes;
+use interfaces\SenderNotifyInterface;
 
-class SenderFactoryImpl implements SenderFactoryInterface
+class SenderFactoryService implements SenderFactoryInterface
 {
-    public function make(SenderTypes $type): SenderNotify
+    public function make(SenderTypes $type): SenderNotifyInterface
     {
         return match ($type) {
-            SenderTypes::Telegram => new TelegramSender(),
-            SenderTypes::Email => new EmailSender(),
+            SenderTypes::Telegram => new TelegramSenderService(),
+            SenderTypes::Email => new EmailSenderService(),
         };
     }
 }

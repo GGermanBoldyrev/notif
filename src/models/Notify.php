@@ -3,10 +3,10 @@
 namespace models;
 
 use database\Database;
-use interfaces\NotifyCreatorInterface;
-use interfaces\NotifySendersServiceInterface;
+use enums\SenderTypes;
+use PDO;
 
-class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
+class Notify
 {
     public int $id;
     public int $userId;
@@ -22,12 +22,12 @@ class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
         return $db->lastInsertId();
     }
 
-    public static function getNotSends(DateTime $dateTime): array
+    public static function getNotSends(string $dateTime): array
     {
         $db = Database::getInstance();
         $stmt = $db->prepare("SELECT * FROM notifications WHERE last_sent_at IS NULL OR last_sent_at <= :date_time");
         $stmt->execute(['date_time' => $dateTime]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
+        return $stmt->fetchAll();
     }
 
     public static function setNotificationSended(int $notifyId, SenderTypes $type) : void

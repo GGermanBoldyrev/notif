@@ -3,17 +3,18 @@
 namespace models;
 
 use database\Database;
+use PDO;
 
 class User
 {
     private $id;
-    private $email;
+    public $email;
     public ?string $telegramId;
 
-    public static function find(int $id): ?User
+    public static function find(int $id): array
     {
         $db = Database::getInstance();
-        $stmt = $db->prepare("SELECT * FROM `user` WHERE `id` = :id");
+        $stmt = $db->prepare("SELECT * FROM `users` WHERE `id` = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }

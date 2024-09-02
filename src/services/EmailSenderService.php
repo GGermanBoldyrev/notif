@@ -10,7 +10,7 @@ class EmailSenderService implements SenderNotifyInterface
 {
     public function send(Notify $notify): bool
     {
-        $user = User::find($notify->user_id);
+        $user = User::find($notify->userId);
         // Логика отправки email
         echo "Email sent to '$user->email': '$notify->text'\n";
         return true;
