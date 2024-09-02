@@ -2,7 +2,7 @@
 
 namespace interfaces;
 
-interface NotifySendersService
+interface NotifySendersServiceInterface
 {
     /**
     * @param DateTime $dateTime
@@ -10,5 +10,5 @@ interface NotifySendersService
     */
     function getNotSends(DateTime $dateTime): array;
 
-    function setNotificationSended(int $notifyId, SenderTypes $type);
+    function setNotificationSended(int $notifyId, SenderTypes $type): void;
 }

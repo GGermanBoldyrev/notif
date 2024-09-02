@@ -2,7 +2,8 @@
 
 namespace enums;
 
-enum SenderTypes {
+enum SenderTypes 
+{
     case Telegram;
     case Email;
 }
