@@ -1,0 +1,16 @@
+{
+    "name": "german/notif",
+    "autoload": {
+        "psr-4": {
+            "models\\": "src/models",
+            "database\\": "src/database"
+        }
+    },
+    "authors": [
+        {
+            "name": "German Boldyrev",
+            "email": "boldyev_german@mail.ru"
+        }
+    ],
+    "require": {}
+}
