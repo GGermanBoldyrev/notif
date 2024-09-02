@@ -2,7 +2,7 @@
 
 namespace interfaces;
 
-interface NotifyCreator
+interface NotifyCreatorInterface
 {
     function create(int $userId, int $periodMinutes, string $text): int;
 }
