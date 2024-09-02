@@ -3,7 +3,10 @@
     "autoload": {
         "psr-4": {
             "models\\": "src/models",
-            "database\\": "src/database"
+            "database\\": "src/database",
+            "enums\\": "src/enums",
+            "interfaces\\": "src/interfaces",
+            "services\\": "src/services"
         }
     },
     "authors": [

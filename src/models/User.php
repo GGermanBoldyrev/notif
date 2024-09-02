@@ -2,14 +2,13 @@
 
 namespace models;
 
-
 use database\Database;
 
 class User
 {
     private $id;
     private $email;
-    public ?string $telegram_id;
+    public ?string $telegramId;
 
     public static function find(int $id): ?User
     {
