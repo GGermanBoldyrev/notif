@@ -6,7 +6,7 @@ use interfaces\SenderFactoryInterface;
 use interfaces\SenderNotifyInterface;
 use enums\SenderTypes;
 
-class SenderFactoryImpl implements SenderFactory
+class SenderFactoryImpl implements SenderFactoryInterface
 {
     public function make(SenderTypes $type): SenderNotify
     {
