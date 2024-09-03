@@ -25,9 +25,11 @@ class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
 
     public function create(int $userId, int $periodMinutes, string $text) : int 
     {
-        $stmt = $this->db->prepare("INSERT INTO notifications (user_id, period_minutes, text) VALUES (:user_id, :period_minutes, :text)");
-        $stmt->execute(['user_id' => $userId, 'period_minutes' => $periodMinutes, 'text' => $text]);
-        return $db->lastInsertId();
+        if (!$this->notificationExists($userId, $periodMinutes, $text)) {
+            $stmt = $this->db->prepare("INSERT INTO notifications (user_id, period_minutes, text) VALUES (:user_id, :period_minutes, :text)");
+            $stmt->execute(['user_id' => $userId, 'period_minutes' => $periodMinutes, 'text' => $text]);
+            return $this->db->lastInsertId();
+        }
     }
 
     public function getNotSends(string $dateTime): array
@@ -41,5 +43,19 @@ class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
     {
         $stmt = $this->db->prepare("UPDATE notifications SET last_sent_at = NOW() WHERE id = :id");
         $stmt->execute(['id' => $notifyId]);
+    }
+
+    private function notificationExists(int $userId, int $periodMinutes, string $text): bool
+    {
+        $stmt = $this->db->prepare(
+            "SELECT COUNT(*) FROM notifications 
+            WHERE user_id = :user_id AND period_minutes = :period_minutes AND text = :text"
+        );
+        $stmt->execute([
+            'user_id' => $userId,
+            'period_minutes' => $periodMinutes,
+            'text' => $text
+        ]);
+        return $stmt->fetchColumn() > 0;
     }
 }
