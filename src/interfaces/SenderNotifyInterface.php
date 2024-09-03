@@ -3,6 +3,7 @@
 namespace interfaces;
 
 use models\Notify;
+use models\User;
 
 interface SenderNotifyInterface
 {

@@ -36,7 +36,7 @@ class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
     {
         $stmt = $this->db->prepare("SELECT * FROM notifications WHERE last_sent_at IS NULL OR TIMESTAMPDIFF(MINUTE, last_sent_at, :currentTime) >= period_minutes");
         $stmt->execute(['currentTime' => $dateTime->format('Y-m-d H:i:s')]);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Notify::class);
     }
 
     public function setNotificationSended(int $notifyId, SenderTypes $type, DateTime $dateTime) : void

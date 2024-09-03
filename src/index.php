@@ -10,6 +10,7 @@ use services\NotifyCreatorService;
 use services\UserCreatorService;
 use services\NotifySendersService;
 use services\SenderFactoryService;
+use services\UserService;
 
 $database = Database::getInstance();
 $notify = new Notify($db);
@@ -23,7 +24,8 @@ $migrationService->migrate($migrationsPath);
 $notifyCreator = new NotifyCreatorService($notify);
 $userCreator = new UserCreatorService($user);
 $notifySendersService = new NotifySendersService($notify);
-$senderFactory = new SenderFactoryService();
+$userService = new UserService($database);
+$senderFactory = new SenderFactoryService($userService);
 
 // Entry point
 $senderService = new SenderService($notifyCreator, $userCreator, $senderFactory, $notifySendersService);
