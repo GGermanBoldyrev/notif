@@ -21,7 +21,7 @@ class NotifySendersService implements NotifySendersServiceInterface
         return $this->notify->getNotSends($dateTime);
     }
 
-    public function setNotificationSended(int $notifyId, SenderTypes $type, DateTime $dateTime) : void
+    public function setNotificationSended(int $notifyId, DateTime $dateTime) : void
     {
         $this->notify->setNotificationSended($notifyId, $type);
     }
