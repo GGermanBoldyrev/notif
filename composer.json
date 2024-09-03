@@ -15,5 +15,7 @@
             "email": "boldyev_german@mail.ru"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-pdo": "*"
+    }
 }
