@@ -4,7 +4,6 @@ namespace services;
 
 use interfaces\SenderNotifyInterface;
 use models\Notify;
-use services\UserService;
 
 class EmailSenderService implements SenderNotifyInterface
 {
@@ -17,7 +16,7 @@ class EmailSenderService implements SenderNotifyInterface
 
     public function send(Notify $notify): bool
     {
-        $user = $this->userService->getUserById($notify->userId);
+        $user = $this->userService->getUserById($notify->user_id);
 
         if ($user && $user->email) {
             // Логика отправки email

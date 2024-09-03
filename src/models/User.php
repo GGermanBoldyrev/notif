@@ -7,13 +7,13 @@ use PDO;
 
 class User implements UserCreatorInterface
 {
-    private PDO $db;
+    private ?PDO $db;
 
     private int $id;
     public string $email;
-    public ?string $telegramId;
+    public ?string $telegram_id;
 
-    public function __construct(PDO $db)
+    public function __construct(?PDO $db = null)
     {
         $this->db = $db;
     }
@@ -22,7 +22,7 @@ class User implements UserCreatorInterface
     {
         $stmt = $this->db->prepare("SELECT * FROM `users` WHERE `id` = :id");
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_CLASS, User::class);
+        return $stmt->fetchObject(User::class) ?: null;
     }
 
     public function create(string $email, ?string $telegramId = null): int

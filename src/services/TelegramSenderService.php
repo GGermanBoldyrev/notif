@@ -17,11 +17,11 @@ class TelegramSenderService implements SenderNotifyInterface
 
     public function send(Notify $notify): bool
     {
-        $user = $this->userService->getUserById($notify->userId);
+        $user = $this->userService->getUserById($notify->user_id);
         
-        if ($user && $user->telegramId) {
+        if ($user && $user->telegram_id) {
             // Логика отправки сообщения через Telegram API
-            echo "Telegram sent to {$user->telegramId}: {$notify->text}\n";
+            echo "Telegram sent to {$user->telegram_id}: {$notify->text}\n";
             return true;
         }
 

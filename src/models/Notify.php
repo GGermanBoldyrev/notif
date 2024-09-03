@@ -9,15 +9,15 @@ use PDO;
 
 class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
 {
-    private PDO $db;
+    private ?PDO $db;
 
     public int $id;
-    public int $userId;
-    public int $period;
+    public int $user_id;
+    public int $period_minutes;
     public string $text;
-    public ?string $lastSentAt;
+    public ?string $last_sent_at;
 
-    public function __construct(PDO $db)
+    public function __construct(?PDO $db = null)
     {
         $this->db = $db;
     }
@@ -36,7 +36,7 @@ class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
     {
         $stmt = $this->db->prepare("SELECT * FROM notifications WHERE last_sent_at IS NULL OR TIMESTAMPDIFF(MINUTE, last_sent_at, :currentTime) >= period_minutes");
         $stmt->execute(['currentTime' => $dateTime->format('Y-m-d H:i:s')]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, Notify::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
     public function setNotificationSended(int $notifyId, DateTime $dateTime) : void

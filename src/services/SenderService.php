@@ -25,13 +25,13 @@ class SenderService
 
         $this->notifyCreator->create(
             userId: 1,
-            periodMinutes: 5,
+            periodMinutes: 1,
             text: "Hello world every 5 minutes for user 1 !!!",
         );
 
         $this->notifyCreator->create(
             userId: 2,
-            periodMinutes: 3,
+            periodMinutes: 1,
             text: "Hello every 3 minutes for user 2 !!!"
         );
     }
