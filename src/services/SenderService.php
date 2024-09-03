@@ -46,7 +46,7 @@ class SenderService
                     $sender = $this->senderFactory->make($type);
                     $isSended = $sender->send($notification);
                     if ($isSended) {
-                        $this->notifySendersService->setNotificationSended($notification->id, $type);
+                        $this->notifySendersService->setNotificationSended($notification->id, $type, $dateTimeNow);
                     }
                 }
             }

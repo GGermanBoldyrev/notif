@@ -32,17 +32,20 @@ class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
         }
     }
 
-    public function getNotSends(string $dateTime): array
+    public function getNotSends(DateTime $dateTime): array
     {
-        $stmt = $this->db->prepare("SELECT * FROM notifications WHERE last_sent_at IS NULL OR last_sent_at <= :date_time");
-        $stmt->execute(['date_time' => $dateTime]);
+        $stmt = $this->db->prepare("SELECT * FROM notifications WHERE last_sent_at IS NULL OR TIMESTAMPDIFF(MINUTE, last_sent_at, :currentTime) >= period_minutes");
+        $stmt->execute(['currentTime' => $dateTime->format('Y-m-d H:i:s')]);
         return $stmt->fetchAll();
     }
 
-    public function setNotificationSended(int $notifyId, SenderTypes $type) : void
+    public function setNotificationSended(int $notifyId, SenderTypes $type, DateTime $dateTime) : void
     {
-        $stmt = $this->db->prepare("UPDATE notifications SET last_sent_at = NOW() WHERE id = :id");
-        $stmt->execute(['id' => $notifyId]);
+        $stmt = $this->db->prepare("UPDATE notifications SET last_sent_at = :dateNow WHERE id = :id");
+        $stmt->execute([
+            'dateNow' => $dateTime->format('Y-m-d H:i:s'),
+            'id' => $notifyId
+        ]);
     }
 
     private function notificationExists(int $userId, int $periodMinutes, string $text): bool

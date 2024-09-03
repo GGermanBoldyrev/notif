@@ -14,5 +14,5 @@ interface NotifySendersServiceInterface
     */
     function getNotSends(DateTime $dateTime): array;
 
-    function setNotificationSended(int $notifyId, SenderTypes $type): void;
+    function setNotificationSended(int $notifyId, SenderTypes $type, DateTime $dateTime): void;
 }
