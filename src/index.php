@@ -7,14 +7,15 @@ use models\Notify;
 use models\User;
 use services\MigrationsService;
 use services\NotifyCreatorService;
+use services\SenderService;
 use services\UserCreatorService;
 use services\NotifySendersService;
 use services\SenderFactoryService;
 use services\UserService;
 
 $database = Database::getInstance();
-$notify = new Notify($db);
-$user = new User($db);
+$notify = new Notify($database);
+$user = new User($database);
 
 // Запускаем миграции
 $migrationsPath = __DIR__ . '/database/migrations/';

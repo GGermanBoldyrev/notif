@@ -2,7 +2,6 @@
 
 namespace models;
 
-use enums\SenderTypes;
 use interfaces\NotifyCreatorInterface;
 use interfaces\NotifySendersServiceInterface;
 use DateTime;
@@ -30,6 +29,7 @@ class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
             $stmt->execute(['user_id' => $userId, 'period_minutes' => $periodMinutes, 'text' => $text]);
             return $this->db->lastInsertId();
         }
+        return 0;
     }
 
     public function getNotSends(DateTime $dateTime): array

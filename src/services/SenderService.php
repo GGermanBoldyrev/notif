@@ -24,13 +24,13 @@ class SenderService
         );
 
         $this->notifyCreator->create(
-            userId: 0,
+            userId: 1,
             periodMinutes: 5,
             text: "Hello world every 5 minutes for user 1 !!!",
         );
 
         $this->notifyCreator->create(
-            userId: 1,
+            userId: 2,
             periodMinutes: 3,
             text: "Hello every 3 minutes for user 2 !!!"
         );
@@ -46,7 +46,7 @@ class SenderService
                     $sender = $this->senderFactory->make($type);
                     $isSended = $sender->send($notification);
                     if ($isSended) {
-                        $this->notifySendersService->setNotificationSended($notification->id, $type, $dateTimeNow);
+                        $this->notifySendersService->setNotificationSended($notification->id, $dateTimeNow);
                     }
                 }
             }

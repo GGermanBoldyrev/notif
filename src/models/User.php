@@ -32,6 +32,7 @@ class User implements UserCreatorInterface
             $stmt->execute(['email' => $email, 'telegram_id' => $telegramId]);
             return $this->db->lastInsertId();
         }
+        return 0;
     }
 
     private function emailExists(string $email): bool
