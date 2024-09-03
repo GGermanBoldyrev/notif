@@ -9,13 +9,20 @@ use enums\SenderTypes;
 
 class NotifySendersService implements NotifySendersServiceInterface
 {
+    private Notify $notify;
+
+    public function __construct(Notify $notify)
+    {
+        $this->notify = $notify;
+    }
+
     public function getNotSends(DateTime $dateTime): array
     {
-        return Notify::getNotSends($dateTime->format('Y-m-d H:i:s'));
+        return $this->notify->getNotSends($dateTime->format('Y-m-d H:i:s'));
     }
 
     public function setNotificationSended(int $notifyId, SenderTypes $type) : void
     {
-        Notify::setNotificationSended($notifyId, $type);
+        $this->notify->setNotificationSended($notifyId, $type);
     }
 }

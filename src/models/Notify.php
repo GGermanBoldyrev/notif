@@ -4,36 +4,42 @@ namespace models;
 
 use database\Database;
 use enums\SenderTypes;
+use interfaces\NotifyCreatorInterface;
+use interfaces\NotifySendersServiceInterface;
 use PDO;
 
-class Notify
+class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
 {
+    private PDO $db;
+
     public int $id;
     public int $userId;
     public int $period;
     public string $text;
     public ?string $lastSentAt;
 
-    public static function create(int $userId, int $periodMinutes, string $text) : int 
+    public function __construct(PDO $db)
     {
-        $db = Database::getInstance();
-        $stmt = $db->prepare("INSERT INTO notifications (user_id, period_minutes, text) VALUES (:user_id, :period_minutes, :text)");
+        $this->db = $db;
+    }
+
+    public function create(int $userId, int $periodMinutes, string $text) : int 
+    {
+        $stmt = $this->db->prepare("INSERT INTO notifications (user_id, period_minutes, text) VALUES (:user_id, :period_minutes, :text)");
         $stmt->execute(['user_id' => $userId, 'period_minutes' => $periodMinutes, 'text' => $text]);
         return $db->lastInsertId();
     }
 
-    public static function getNotSends(string $dateTime): array
+    public function getNotSends(string $dateTime): array
     {
-        $db = Database::getInstance();
-        $stmt = $db->prepare("SELECT * FROM notifications WHERE last_sent_at IS NULL OR last_sent_at <= :date_time");
+        $stmt = $this->db->prepare("SELECT * FROM notifications WHERE last_sent_at IS NULL OR last_sent_at <= :date_time");
         $stmt->execute(['date_time' => $dateTime]);
         return $stmt->fetchAll();
     }
 
-    public static function setNotificationSended(int $notifyId, SenderTypes $type) : void
+    public function setNotificationSended(int $notifyId, SenderTypes $type) : void
     {
-        $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE notifications SET last_sent_at = NOW() WHERE id = :id");
+        $stmt = $this->db->prepare("UPDATE notifications SET last_sent_at = NOW() WHERE id = :id");
         $stmt->execute(['id' => $notifyId]);
     }
 }
