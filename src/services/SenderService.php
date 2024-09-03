@@ -9,18 +9,28 @@ class SenderService
 {
     public function __construct(
         private NotifyCreatorService        $notifyCreator,
+        private UserCreatorService          $userCreator,
         private SenderFactoryService        $senderFactory,
         private NotifySendersService $notifySendersService
     )
     {
+        $this->userCreator->create(
+            email: "boldyrev_german@mail.ru",
+            telegramId: 't.me/ggerman_boldyrev'
+        );
+
+        $this->userCreator->create(
+            email: "german_for_job@mail.ru",
+        );
+
         $this->notifyCreator->create(
-            userId: 1,
+            userId: 0,
             periodMinutes: 5,
             text: "Hello world every 5 minutes for user 1 !!!",
         );
 
         $this->notifyCreator->create(
-            userId: 2,
+            userId: 1,
             periodMinutes: 3,
             text: "Hello every 3 minutes for user 2 !!!"
         );
@@ -36,7 +46,7 @@ class SenderService
                     $sender = $this->senderFactory->make($type);
                     $isSended = $sender->send($notification);
                     if ($isSended) {
-                        $this->notifySendersService->setNotificationSended($notification->id, $type);
+                        $this->notifySendersService->setNotificationSended($notification->id, $type, $dateTimeNow);
                     }
                 }
             }
