@@ -19,7 +19,7 @@ class EmailSenderService implements SenderNotifyInterface
     {
         $user = $this->userService->getUserById($notify->userId);
 
-        if ($user) {
+        if ($user && $user->email) {
             // Логика отправки email
             echo "Email sent to '$user->email': '$notify->text'\n";
             return true;

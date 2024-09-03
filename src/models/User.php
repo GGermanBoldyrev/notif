@@ -4,6 +4,7 @@ namespace models;
 
 use database\Database;
 use interfaces\UserCreatorInterface;
+use models\User;
 use PDO;
 
 class User implements UserCreatorInterface
@@ -19,11 +20,11 @@ class User implements UserCreatorInterface
         $this->db = $db;
     }
 
-    public static function find(int $id): array
+    public static function find(int $id): ?User
     {
         $stmt = $this->db->prepare("SELECT * FROM `users` WHERE `id` = :id");
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_CLASS, User::class);
     }
 
     public function create(string $email, ?string $telegramId = null): int
