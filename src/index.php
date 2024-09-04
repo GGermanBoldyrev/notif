@@ -5,6 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use database\Database;
 use models\Notify;
 use models\User;
+use services\EmailService;
 use services\MigrationsService;
 use services\NotifyCreatorService;
 use services\SenderService;
@@ -29,7 +30,8 @@ $notifyCreator = new NotifyCreatorService($notify);
 $userCreator = new UserCreatorService($user);
 $notifySendersService = new NotifySendersService($notify);
 $userService = new UserService($database);
-$senderFactory = new SenderFactoryService($userService, $config);
+$emailService = new EmailService($config);
+$senderFactory = new SenderFactoryService($userService, $emailService, $config);
 
 // Entry point
 $senderService = new SenderService($notifyCreator, $userCreator, $senderFactory, $notifySendersService);
