@@ -14,8 +14,8 @@ class UserCreatorService implements UserCreatorInterface
         $this->user = $user;
     }
 
-    public function create(string $email, ?string $telegramId = null): int
+    public function create(string $email, ?string $telegramId = null, ?string $chatId = null): int
     {
-        return $this->user->create($email, $telegramId);
+        return $this->user->create($email, $telegramId, $chatId);
     }
 }

@@ -5,4 +5,5 @@ return [
     'dbname' => 'dbname',
     'user' => 'user',
     'password' => 'password',
+    'tg_token' => 'your_tg_token',
 ];

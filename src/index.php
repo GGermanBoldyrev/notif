@@ -13,7 +13,10 @@ use services\NotifySendersService;
 use services\SenderFactoryService;
 use services\UserService;
 
-$database = Database::getInstance();
+// Конфиг
+$config = require __DIR__ . '/../config/config.php';
+
+$database = Database::getInstance($config);
 $notify = new Notify($database);
 $user = new User($database);
 
@@ -26,7 +29,7 @@ $notifyCreator = new NotifyCreatorService($notify);
 $userCreator = new UserCreatorService($user);
 $notifySendersService = new NotifySendersService($notify);
 $userService = new UserService($database);
-$senderFactory = new SenderFactoryService($userService);
+$senderFactory = new SenderFactoryService($userService, $config);
 
 // Entry point
 $senderService = new SenderService($notifyCreator, $userCreator, $senderFactory, $notifySendersService);

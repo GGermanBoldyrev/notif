@@ -16,7 +16,8 @@ class SenderService
     {
         $this->userCreator->create(
             email: "boldyrev_german@mail.ru",
-            telegramId: 't.me/ggerman_boldyrev'
+            telegramId: 't.me/ggerman_boldyrev',
+            chatId: '1125492380',
         );
 
         $this->userCreator->create(
