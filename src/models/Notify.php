@@ -2,12 +2,10 @@
 
 namespace models;
 
-use interfaces\NotifyCreatorInterface;
-use interfaces\NotifySendersServiceInterface;
 use DateTime;
 use PDO;
 
-class Notify implements NotifyCreatorInterface, NotifySendersServiceInterface
+class Notify
 {
     private ?PDO $db;
 

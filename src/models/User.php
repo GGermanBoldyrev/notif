@@ -2,10 +2,9 @@
 
 namespace models;
 
-use interfaces\UserCreatorInterface;
 use PDO;
 
-class User implements UserCreatorInterface
+class User
 {
     private ?PDO $db;
 
